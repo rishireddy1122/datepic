@@ -1,0 +1,44 @@
+import {format, fromUnixTime, getUnixTime, subMonths,addMonths} from "date-fns"
+
+
+const datePickerButton = document.querySelector(".date-picker-button")
+const  datePicker      = document.querySelector(".date-picker ")
+const datepickerHeaderText = document.querySelector(".current-month")
+const nextmonthButton = document.querySelector(".next-month-button month-button")
+const prevmonthButton = document.querySelector(".prev-month-button month-button")
+
+
+datePickerButton.addEventListener('click' ,() => {
+    datePicker.classList.toggle('show')
+    const selectedDate = fromUnixTime(datepickerHeaderText.dataset.selectedDate)
+})
+
+
+
+function setDate(date) {
+    datePickerButton.innerText = format(date, 'MMMM do, yyyy');
+    datepickerHeaderText.dataset.selectedDate= getUnixTime(date)
+    setdatepicker(selectedDate)
+  }
+
+  
+  
+  function setdatepicker (selectedDate) {
+    datepickerHeaderText.innerText = format(selectedDate,"MMMM -yyyy")
+    setmonthButton(selectedDate)
+
+  }
+
+  function setmonthButton(selectedDate) {
+    nextmonthButton.addEventListener("click",() =>{
+        setdatepicker(addMonths(date,1))
+    },{once:true})
+  
+
+  
+    prevmonthButton.addEventListener("click",() =>{
+        setdatepicker(subMonths(date,1))
+    },{once:true})
+  }
+
+ setDate(new Date()); 
